@@ -6,11 +6,14 @@
   "scripts": {
     "start": "nodemon app",
     "test": "jest --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "migrate": "npx sequelize-cli db:migrate",
+    "rollback_migrate": "npx sequelize-cli db:migrate:undo:all"
   },
   "author": "abbas",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
