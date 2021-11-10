@@ -1,5 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
+const Book = require('../models/book');
+const Category = require('../models/category');
 module.exports = (sequelize, DataTypes) => {
   class book_category extends Model {
     /**
@@ -9,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      book_category.belongsTo(models.book, {
+      book_category.belongsTo(models.Book, {
         foreignKey: 'id',
         as: 'book',
       });
-      book_category.belongsTo(models.category, {
+      book_category.belongsTo(models.Category, {
         foreignKey: 'id',
-        as: 'book',
+        as: 'category',
       });
     }
   }
@@ -30,10 +32,12 @@ module.exports = (sequelize, DataTypes) => {
       bookId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        //references a book?
       },
       categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        //references a category?
       },
     },
     {
