@@ -50,9 +50,10 @@ const db = {};
 console.log(config.username);
 console.log(config.password);
 let sequelize;
+//I previously had to hardcoded it here
 if (config.use_env_variable) {
-  //sequelize = new Sequelize(process.env[config.use_env_variable], config);
-  sequelize = new Sequelize('app_devdb', 'postgres', 'IDnowLOV123', config);
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  //sequelize = new Sequelize('app_devdb', 'postgres', 'IDnowLOV123', config);
 } else {
   sequelize = new Sequelize('app_devdb', 'postgres', 'IDnowLOV123', config);
 }
