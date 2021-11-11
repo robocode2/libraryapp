@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      book_author.belongsTo(models.book, {
+      book_author.belongsTo(models.Book, {
         foreignKey: 'id',
         as: 'book',
       });
-      book_author.belongsTo(models.author, {
+      book_author.belongsTo(models.Author, {
         foreignKey: 'id',
         as: 'author',
       });

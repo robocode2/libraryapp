@@ -23,7 +23,7 @@ app.use(cors());
 
 app.get('/books', async (req, res) => {
   try {
-    const books = await Book.findAll();
+    const books = await Author.findAll();
     console.log(books);
     res.json(books);
   } catch (err) {
