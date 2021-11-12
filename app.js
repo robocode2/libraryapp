@@ -1,16 +1,10 @@
 require('dotenv').config();
 
 const express = require('express');
-
 var cors = require('cors');
-
-/* 
-const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize(process.env.DEV_DATABASE_URL); // Example for postgres */
-
 const sequelize = require('./server/config/database/config/dbconnection');
 
-const { Book, Author, Category, Book_categories, Book_authors } = require('./server/config/database/models');
+const { Book } = require('./server/config/database/models');
 
 const app = express();
 
@@ -23,7 +17,7 @@ app.use(cors());
 
 app.get('/books', async (req, res) => {
   try {
-    const books = await Author.findAll();
+    const books = await Book.findAll();
     console.log(books);
     res.json(books);
   } catch (err) {
@@ -33,10 +27,10 @@ app.get('/books', async (req, res) => {
 });
 
 app.post('/books', async (req, res) => {
-  const { title, isbn, description } = req.body; //do I need id ?
+  const { id, title, isbn, description } = req.body; //do I need id ?yesitseems
 
   try {
-    const book = await Book.create({ title, isbn, description });
+    const book = await Book.create({ id, title, isbn, description });
 
     return res.json(book);
   } catch (err) {
@@ -76,16 +70,17 @@ app.delete('/book/:id', async (req, res) => {
 
 app.put('/book/:id', async (req, res) => {
   //is id ok? revert to id/uuid?
-  //const id = req.params.id;
-  const { title, id, description } = req.body;
+
+  const { id, title, isbn, description } = req.body;
   try {
     const book = await Book.findOne({ where: { id } });
 
+    book.id = id;
     book.title = title;
-    book.id = id; //geht nicht!
+    book.isbn = isbn;
     book.description = description;
 
-    await Book.save();
+    await book.save();
 
     return res.json(book);
   } catch (err) {
@@ -94,7 +89,7 @@ app.put('/book/:id', async (req, res) => {
   }
 });
 
-app.listen({ port: 3001 }, async () => {
+app.listen(process.env.PORT, async () => {
   console.log('server is up!');
   try {
     await sequelize.authenticate();

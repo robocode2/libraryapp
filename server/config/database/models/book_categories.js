@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       book_category.belongsTo(models.Category, {
         foreignKey: 'id',
-        as: 'bookin',
+        as: 'boook',
       });
     }
   }
