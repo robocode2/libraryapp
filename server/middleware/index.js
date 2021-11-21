@@ -1,4 +1,5 @@
-const admin = require('../config/firebase-config');
+const admin = require('../config/firebase/firebase-config');
+
 class Middleware {
   async decodeToken(req, res, next) {
     const token = req.headers.authorization.split(' ')[1];
