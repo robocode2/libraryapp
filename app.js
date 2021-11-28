@@ -3,13 +3,16 @@ const cors = require('cors');
 const middleware = require('./server/middleware/index');
 const express = require('express');
 const sequelize = require('./server/config/database/config/dbconnection');
-const { Book } = require('./server/config/database/models');
+const { Book, User } = require('./server/config/database/models');
+const { not } = require('expect');
+const user = require('./server/config/database/models/user');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.use(middleware.decodeToken);
+//app.use(middleware.decodeToken);
+//app.use(middleware.findOrCreateUser);
 
 // Routes
 
@@ -19,8 +22,28 @@ app.get('/', (req, res) => {
 
 // Book routes
 
+app.get('/booksss', async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: { displayName: username },
+    });
+    if (!user) {
+      const useruid = req.user.uid;
+      const userdisplayname = req.user.name;
+      const dbuser = User.create({ useruid, userid, userdisplayname });
+    }
+
+    //console.log(user);
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
 app.get('/books', async (req, res) => {
   try {
+    console.log(req.user.uid);
     const books = await Book.findAll();
     console.log(books);
     res.json(books);
@@ -46,6 +69,7 @@ app.post('/books', async (req, res) => {
 //Books
 app.get('/books/:id', async (req, res) => {
   const id = req.params.id; //or by isbn?
+  console.log(req.params);
   try {
     const book = await Book.findOne({
       where: { id },
@@ -98,7 +122,7 @@ const PORT = process.env.PORT || 8080;
   console.log(`Server listening on port ${PORT}...`);
 });
  */
-
+/* 
 app.listen(PORT, async () => {
   console.log('server is up!');
   try {
@@ -108,4 +132,6 @@ app.listen(PORT, async () => {
   } catch (err) {
     console.log(err);
   }
-});
+}); */
+
+module.exports = app;
