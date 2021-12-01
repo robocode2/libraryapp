@@ -59,7 +59,7 @@ app.post('/books', async (req, res) => {
   try {
     const book = await Book.create({ id, title, isbn, description });
 
-    return res.json(book);
+    return res.status(201);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
