@@ -11,8 +11,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-//app.use(middleware.decodeToken);
-//app.use(middleware.findOrCreateUser);
+app.use(middleware.decodeToken);
+app.use(middleware.findOrCreateUser);
 
 // Routes
 
@@ -22,8 +22,9 @@ app.get('/', (req, res) => {
 
 // Book routes
 
-app.get('api/booksss', async (req, res) => {
+/* app.get('api/booksss', async (req, res) => {
   try {
+    console.log('good morningggggg');
     const user = await User.findOne({
       where: { displayName: username },
     });
@@ -39,11 +40,11 @@ app.get('api/booksss', async (req, res) => {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
   }
-});
+}); */
 
 app.get('/books', async (req, res) => {
   try {
-    //console.log(req.user.uid);
+    console.log(req.user.uid);
     const books = await Book.findAll();
     console.log(books);
     res.json(books);
@@ -120,22 +121,5 @@ app.put('/books/:id', async (req, res) => {
     return res.status(500).json({ error: 'Something went wrong' });
   }
 });
-
-const PORT = process.env.PORT || 8080;
-/* app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`);
-});
- */
-/* 
-app.listen(PORT, async () => {
-  console.log('server is up!');
-  try {
-    await sequelize.authenticate();
-    //await sequelize.sync({ force: true })
-    console.log('database connected!');
-  } catch (err) {
-    console.log(err);
-  }
-}); */
 
 module.exports = app;
