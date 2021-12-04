@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 // Book routes
 
-app.get('/booksss', async (req, res) => {
+app.get('api/booksss', async (req, res) => {
   try {
     const user = await User.findOne({
       where: { displayName: username },
@@ -43,7 +43,7 @@ app.get('/booksss', async (req, res) => {
 
 app.get('/books', async (req, res) => {
   try {
-    console.log(req.user.uid);
+    //console.log(req.user.uid);
     const books = await Book.findAll();
     console.log(books);
     res.json(books);
@@ -56,20 +56,24 @@ app.get('/books', async (req, res) => {
 app.post('/books', async (req, res) => {
   const { id, title, isbn, description } = req.body; //do I need id ?yesitseems
 
+  const date1 = new Date();
+  const date2 = new Date();
+  console.log(date1);
+  console.log(`${id},${title},${isbn},${description}`);
   try {
-    const book = await Book.create({ id, title, isbn, description });
+    const book = await Book.create({ id, title, isbn, description, date1, date2 });
 
-    return res.status(201);
+    return res.status(201).json(book);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
   }
 });
 
-//Books
 app.get('/books/:id', async (req, res) => {
   const id = req.params.id; //or by isbn?
   console.log(req.params);
+
   try {
     const book = await Book.findOne({
       where: { id },
@@ -82,7 +86,7 @@ app.get('/books/:id', async (req, res) => {
   }
 });
 
-app.delete('/book/:id', async (req, res) => {
+app.delete('/books/:id', async (req, res) => {
   const id = req.params.id;
   try {
     const book = await Book.findOne({ where: { id } });
@@ -96,7 +100,7 @@ app.delete('/book/:id', async (req, res) => {
   }
 });
 
-app.put('/book/:id', async (req, res) => {
+app.put('/books/:id', async (req, res) => {
   //is id ok? revert to id/uuid?
 
   const { id, title, isbn, description } = req.body;

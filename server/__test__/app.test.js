@@ -15,47 +15,31 @@ describe('Testing get books', () => {
   beforeAll(async () => {
     await thisDb.sequelize.sync({ force: true });
   });
-  /* 
-  it('should add new book', async () => {
-    const res = await request(app).post('/books').send({
-      id: '1',
-      title: 'Jane Eyre',
-      isbn: '1231421251212',
-      description: 'my favourite book',
-    });
-    expect(res.status).toBe(201);
-  }); */
 
-  /* describe('get specific book  through id', () => {
-    test('add new book', async () => {
-      const res = await request(app).get('/books').send({
+  describe('get /books/id', () => {
+    // describe('get specific book  through id', () => {
+    test('should add new book', async () => {
+      const res = await request(app).post('/books').send({
         id: '1',
         title: 'Jane Eyre',
         isbn: '1231421251212',
         description: 'my favourite book',
       });
-      expect(res.status).toBe(201);
+      expect(res.headers['content-type']).toEqual(expect.stringContaining('json'));
     });
+
+    test('should specify json as the content type in the http header', async () => {
+      const response = await request(app).get('/books/1');
+      expect(response.headers['content-type']).toEqual(expect.stringContaining('json'));
+    });
+    //});
   });
+
   afterAll(async () => {
     await thisDb.sequelize.close();
   });
-}); */
-
-  describe('get /books/id', () => {
-    describe('get specific book  through id', () => {
-      test('should specify json as the content type in the http header', async () => {
-        const response = await request(app).get('/books/1').send({
-          id: '1',
-        });
-        expect(response.headers['content-type']).toEqual(expect.stringContaining('json'));
-      });
-    });
-    afterAll(async () => {
-      await thisDb.sequelize.close();
-    });
-  });
-  /* 
+});
+/* 
 describe('test the JWT authorization middleware', () => {
   // Set the db object to a variable which can be accessed throughout the whole test file
   let thisDb= db;
@@ -108,4 +92,3 @@ describe('test the JWT authorization middleware', () => {
     await thisDb.sequelize.close();
   });
 }); */
-});
