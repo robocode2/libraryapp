@@ -17,22 +17,20 @@ describe('Testing get books', () => {
   });
 
   describe('get /books/id', () => {
-    // describe('get specific book  through id', () => {
-    test('should add new book', async () => {
-      const res = await request(app).post('/books').send({
-        id: '1',
-        title: 'Jane Eyre',
-        isbn: '1231421251212',
-        description: 'my favourite book',
-      });
-      expect(res.headers['content-type']).toEqual(expect.stringContaining('json'));
-    });
-
     test('should specify json as the content type in the http header', async () => {
       const response = await request(app).get('/books/1');
       expect(response.headers['content-type']).toEqual(expect.stringContaining('json'));
     });
-    //});
+  });
+
+  test('should add new book', async () => {
+    const res = await request(app).post('/books').send({
+      id: '1',
+      title: 'Jane Eyre',
+      isbn: '1231421251212',
+      description: 'my favourite book',
+    });
+    expect(res.headers['content-type']).toEqual(expect.stringContaining('json'));
   });
 
   afterAll(async () => {
