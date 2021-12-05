@@ -1,28 +1,44 @@
 require('dotenv').config();
-const cors = require('cors');
-const middleware = require('./server/middleware/index');
+//const cors = require('cors');
+const morgan = require('morgan');
+/* const middleware = require('./server/middleware/index'); */
 const express = require('express');
 const sequelize = require('./server/config/database/config/dbconnection');
 const { Book, User } = require('./server/config/database/models');
-const { not } = require('expect');
 const user = require('./server/config/database/models/user');
 const app = express();
+//var indexRouter = require('./server/routes/index');
+const bookRoutes = require('./server/routes/booksRoutes');
 
+app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
+//app.use('/', indexRouter);
+app.use('/', bookRoutes);
 
-app.use(middleware.decodeToken);
-app.use(middleware.findOrCreateUser);
+/* app.use((req, res, next) => {
+  const error = new Error('Not ssfffound');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message,
+    },
+  });
+});
+ */
+//app.use(middleware.decodeToken);
+//app.use(middleware.findOrCreateUser);
 
 // Routes
 
-app.get('/', (req, res) => {
-  res.send('Hello from App Engine!');
-});
-
 // Book routes
-
-/* app.get('api/booksss', async (req, res) => {
+/* 
+app.get('api/booksss', async (req, res) => {
   try {
     console.log('good morningggggg');
     const user = await User.findOne({
@@ -38,23 +54,22 @@ app.get('/', (req, res) => {
     res.json(user);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong1' });
   }
-}); */
+});
 
 app.get('/books', async (req, res) => {
   try {
-    console.log(req.user.uid);
     const books = await Book.findAll();
     console.log(books);
     res.json(books);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong2' });
   }
 });
 
-app.post('/books', async (req, res) => {
+app.post('/books/create', async (req, res) => {
   const { id, title, isbn, description } = req.body; //do I need id ?yesitseems
 
   const date1 = new Date();
@@ -83,11 +98,11 @@ app.get('/books/:id', async (req, res) => {
     return res.json(book);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong3' });
   }
 });
 
-app.delete('/books/:id', async (req, res) => {
+app.delete('/books/:id/delete', async (req, res) => {
   const id = req.params.id;
   try {
     const book = await Book.findOne({ where: { id } });
@@ -97,11 +112,11 @@ app.delete('/books/:id', async (req, res) => {
     return res.json({ message: 'Book deleted!' });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong4' });
   }
 });
 
-app.put('/books/:id', async (req, res) => {
+app.put('/books/:id/update', async (req, res) => {
   //is id ok? revert to id/uuid?
 
   const { id, title, isbn, description } = req.body;
@@ -118,8 +133,8 @@ app.put('/books/:id', async (req, res) => {
     return res.json(book);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong5' });
   }
-});
+}); */
 
 module.exports = app;
