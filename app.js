@@ -1,7 +1,7 @@
 require('dotenv').config();
-//const cors = require('cors');
+const cors = require('cors');
 const morgan = require('morgan');
-/* const middleware = require('./server/middleware/index'); */
+const middleware = require('./server/middleware/index');
 const express = require('express');
 const sequelize = require('./server/config/database/config/dbconnection');
 const { Book, User } = require('./server/config/database/models');
@@ -9,12 +9,14 @@ const user = require('./server/config/database/models/user');
 const app = express();
 //var indexRouter = require('./server/routes/index');
 const bookRoutes = require('./server/routes/booksRoutes');
+const categoryRoutes = require('./server/routes/categoryRoutes');
 
 app.use(morgan('dev'));
 app.use(express.json());
-//app.use(cors());
+app.use(cors());
 //app.use('/', indexRouter);
 app.use('/', bookRoutes);
+app.use('/', categoryRoutes);
 
 /* app.use((req, res, next) => {
   const error = new Error('Not ssfffound');
