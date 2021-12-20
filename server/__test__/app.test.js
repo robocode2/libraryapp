@@ -13,17 +13,17 @@ const db = require('../config/database/models/index');
 /* describe('test the JWT authorization middleware', () => {
   //eyJhbGciOiJSUzI1NiIsImtpZCI6IjgwNTg1Zjk5MjExMmZmODgxMTEzOTlhMzY5NzU2MTc1YWExYjRjZjkiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUmFiaWUgQWJiYXMiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKdzA5TmdjMm9OTFM0dHZjbjlreGIxbW9fX1V5eUlHRlpKQkFGQnE9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbGlicmFyeWFwcC1kNzdiNyIsImF1ZCI6ImxpYnJhcnlhcHAtZDc3YjciLCJhdXRoX3RpbWUiOjE2Mzg2NDk1NjEsInVzZXJfaWQiOiJhQlhDWHZEOXNVUlFaQUl3MlZibkpxTDBZVEgyIiwic3ViIjoiYUJYQ1h2RDlzVVJRWkFJdzJWYm5KcUwwWVRIMiIsImlhdCI6MTYzODY0OTU2MSwiZXhwIjoxNjM4NjUzMTYxLCJlbWFpbCI6InJhYmllLmFiYmFzQGNvZGUuYmVybGluIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDEzMzAwMzE0MTExMTUxNjIwMTYiXSwiZW1haWwiOlsicmFiaWUuYWJiYXNAY29kZS5iZXJsaW4iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.VBM8eK8YLxNz6dYXqStLMwT-1cSNwjqNgjo0v7_h-l5GVNWHKFpP7kxTSC8xWlNwTV-67CQpAeImUAEWgRTT9DAxkGKQWx3oqsJxlkJ0dV_qMcvrbpCFJBlFYQma7i6aYpT96A9h2bUDe3jA0a3m4uKNQ7wmr74KwLdp3jwnBcyrH-GJC_2KOk98gG6FQfEbeYvGgm8-ySix87JKwIQRgLUjFT-0BRfXULh50Nr6qcuLsoW7ijGPaGa2Itc99BtTDO7yjcFweZjS3jUJgbJL3eFU7G4X_s3C-rmn-BK6HupW1vwYXY9zj5PrG6nAbn9mnH-OimYCUWBaREitOjNGRw
 }); */
+beforeAll(async () => {
+  await db.sequelize.sync({ force: true });
+});
+
+afterAll(async () => {
+  await db.sequelize.close();
+});
 
 describe('testing bookAPI ', () => {
-  beforeAll(async () => {
-    await db.sequelize.sync({ force: true });
-  });
+  //Book CRUD
 
-  afterAll(async () => {
-    await db.sequelize.close();
-  });
-
-  //CRUD erledigt
   test('ADD new book', async () => {
     const res = await request(app).post('/book/create').send({
       id: '1',
@@ -54,5 +54,40 @@ describe('testing bookAPI ', () => {
     const response = await request(app).delete('/book/1');
     console.log(response.text);
     expect(response.text).toEqual(expect.stringContaining('Book deleted'));
+  });
+});
+//Category CRUD
+
+describe('testing categoryAPI ', () => {
+  test('ADD new category', async () => {
+    const res = await request(app).post('/category/create').send({
+      id: '1',
+      name: 'fantasy',
+
+      description: 'fantastical worlds',
+    });
+    expect(res.text).toEqual(expect.stringContaining('fantasy'));
+  });
+
+  test('GET specific category from database', async () => {
+    const response = await request(app).get('/category/1');
+    console.log(response.text);
+    expect(response.text).toEqual(expect.stringContaining('fantasy'));
+  });
+
+  test('UPDATE category', async () => {
+    const res = await request(app).put('/category/1').send({
+      id: '1',
+      name: 'totalitarian fantasy',
+
+      description: 'fantastical worlds',
+    });
+    expect(res.text).toEqual(expect.stringContaining('totalitarian'));
+  });
+
+  test('DELETE specific category', async () => {
+    const response = await request(app).delete('/category/1');
+    console.log(response.text);
+    expect(response.text).toEqual(expect.stringContaining('Category deleted'));
   });
 });
