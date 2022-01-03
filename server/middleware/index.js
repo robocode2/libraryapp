@@ -3,22 +3,25 @@ const { Book, User } = require('../config/database/models');
 
 class Middleware {
   async decodeToken(req, res, next) {
+    console.log(req.headers);
     const token = req.headers.authorization.split(' ')[1];
-    try {
-      const decodeValue = await admin.auth().verifyIdToken(token);
 
-      if (decodeValue) {
-        req.user = decodeValue;
-        const uid = decodeValue.uid;
+    try {
+      const decodedValue = await admin.auth().verifyIdToken(token);
+      console.log(decodedValue);
+      if (decodedValue) {
+        req.user = decodedValue;
+        const uid = decodedValue.uid;
         console.log(uid);
         /* console.log(req.user.uid);
         console.log(req.user.id);
         console.log(req.user.name); */
-        console.log(decodeValue);
+        console.log(decodedValue);
         return next();
       }
       return res.json({ message: 'Un authorize' });
-    } catch (e) {
+    } catch {
+      console.log('wrehrere');
       return res.json({ message: 'Internal Error' });
     }
   }
