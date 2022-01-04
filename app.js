@@ -7,14 +7,15 @@ const sequelize = require('./server/config/database/config/dbconnection');
 const { Book, User } = require('./server/config/database/models');
 const user = require('./server/config/database/models/user');
 const app = express();
-//var indexRouter = require('./server/routes/index');
+const indexRouter = require('./server/routes/index.js');
 const bookRoutes = require('./server/routes/booksRoutes');
 const categoryRoutes = require('./server/routes/categoryRoutes');
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
-//app.use('/', indexRouter);
+
+app.use('/', indexRouter);
 app.use('/', bookRoutes);
 app.use('/', categoryRoutes);
 
