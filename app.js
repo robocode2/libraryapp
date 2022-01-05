@@ -1,7 +1,7 @@
 require('dotenv').config();
 const cors = require('cors');
 const morgan = require('morgan');
-const middleware = require('./server/middleware/index');
+//const middleware = require('./server/middleware/index');
 const express = require('express');
 const sequelize = require('./server/config/database/config/dbconnection');
 const { Book, User } = require('./server/config/database/models');
