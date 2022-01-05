@@ -15,9 +15,6 @@ router.put('/category/:id', category_controller.category_update_post);
 router.get('/category/:id', category_controller.category_detail);
 
 // GET request for list of all Category items.
-router.get('/categories', category_controller.category_list);
-
-//Add category to book
-
+router.get('/', category_controller.category_list);
 
 module.exports = router;
