@@ -1,5 +1,8 @@
 'use strict';
 const { Model } = require('sequelize');
+const Book = require('../models/book');
+const Author = require('../models/author');
+
 module.exports = (sequelize, DataTypes) => {
   class book_author extends Model {
     /**
@@ -9,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      book_author.belongsTo(models.book, {
+      book_author.belongsTo(models.Book, {
         foreignKey: 'id',
         as: 'book',
-      });
-      book_author.belongsTo(models.author, {
+      }); //was ist das fur eine Kacke ?
+      book_author.belongsTo(models.Author, {
         foreignKey: 'id',
         as: 'author',
       });
@@ -30,10 +33,12 @@ module.exports = (sequelize, DataTypes) => {
       book_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        //references a book?
       },
       author_id: {
         type: DataTypes.STRING,
         allowNull: false,
+        //references an author ?
       },
     },
     {

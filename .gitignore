@@ -1,1 +1,5 @@
 node_modules/
+
+.env
+
+/home/abbas/CODEwork/SE_Projects/library-app/server/config/database/config/config.js
