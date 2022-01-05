@@ -1,17 +1,21 @@
 require('dotenv').config();
-
+const cors = require('cors');
+const middleware = require('./server/middleware/index');
 const express = require('express');
-var cors = require('cors');
 const sequelize = require('./server/config/database/config/dbconnection');
-
 const { Book } = require('./server/config/database/models');
-
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
+app.use(middleware.decodeToken);
+
 // Routes
+
+app.get('/', (req, res) => {
+  res.send('Hello from App Engine!');
+});
 
 // Book routes
 
@@ -89,7 +93,13 @@ app.put('/book/:id', async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT, async () => {
+const PORT = process.env.PORT || 8080;
+/* app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}...`);
+});
+ */
+
+app.listen(PORT, async () => {
   console.log('server is up!');
   try {
     await sequelize.authenticate();
