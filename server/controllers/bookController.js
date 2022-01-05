@@ -2,6 +2,7 @@ const { Book } = require('../config/database/models');
 
 // Display list of all books.
 exports.book_list = async (req, res) => {
+  console.log('were her at all books');
   try {
     const books = await Book.findAll();
     return res.json(books);
