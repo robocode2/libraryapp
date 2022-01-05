@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.List, { foreignKey: 'uid', as: 'user' });
+      //User.hasMany(models.List, { foreignKey: 'uid', as: 'user' });
     }
   }
   User.init(
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      tableName: 'user',
+      tableName: 'users',
       modelName: 'User',
     }
   );

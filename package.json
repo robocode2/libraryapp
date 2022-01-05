@@ -1,14 +1,23 @@
 {
   "name": "library-app",
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "jest --watch",
+    "start": "nodemon server.js",
+    "test:watch": "jest --watch",
+    "test": "NODE_ENV=test jest --runInBand",
     "lint": "eslint .",
     "migrate": "npx sequelize-cli db:migrate",
-    "rollback_migrate": "npx sequelize-cli db:migrate:undo:all"
+    "db:undomigrate": "npx sequelize-cli db:migrate:undo:all",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "author": "abbas",
   "license": "ISC",

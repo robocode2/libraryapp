@@ -1,23 +1,62 @@
 require('dotenv').config();
-const cors = require('cors');
-const middleware = require('./server/middleware/index');
+//const cors = require('cors');
+const morgan = require('morgan');
+/* const middleware = require('./server/middleware/index'); */
 const express = require('express');
 const sequelize = require('./server/config/database/config/dbconnection');
-const { Book } = require('./server/config/database/models');
+const { Book, User } = require('./server/config/database/models');
+const user = require('./server/config/database/models/user');
 const app = express();
+//var indexRouter = require('./server/routes/index');
+const bookRoutes = require('./server/routes/booksRoutes');
 
+app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
+//app.use('/', indexRouter);
+app.use('/', bookRoutes);
 
-app.use(middleware.decodeToken);
+/* app.use((req, res, next) => {
+  const error = new Error('Not ssfffound');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message,
+    },
+  });
+});
+ */
+//app.use(middleware.decodeToken);
+//app.use(middleware.findOrCreateUser);
 
 // Routes
 
-app.get('/', (req, res) => {
-  res.send('Hello from App Engine!');
-});
-
 // Book routes
+/* 
+app.get('api/booksss', async (req, res) => {
+  try {
+    console.log('good morningggggg');
+    const user = await User.findOne({
+      where: { displayName: username },
+    });
+    if (!user) {
+      const useruid = req.user.uid;
+      const userdisplayname = req.user.name;
+      const dbuser = User.create({ useruid, userid, userdisplayname });
+    }
+
+    //console.log(user);
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong1' });
+  }
+});
 
 app.get('/books', async (req, res) => {
   try {
@@ -26,26 +65,31 @@ app.get('/books', async (req, res) => {
     res.json(books);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong2' });
   }
 });
 
-app.post('/books', async (req, res) => {
+app.post('/books/create', async (req, res) => {
   const { id, title, isbn, description } = req.body; //do I need id ?yesitseems
 
+  const date1 = new Date();
+  const date2 = new Date();
+  console.log(date1);
+  console.log(`${id},${title},${isbn},${description}`);
   try {
-    const book = await Book.create({ id, title, isbn, description });
+    const book = await Book.create({ id, title, isbn, description, date1, date2 });
 
-    return res.json(book);
+    return res.status(201).json(book);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
   }
 });
 
-//Books
 app.get('/books/:id', async (req, res) => {
   const id = req.params.id; //or by isbn?
+  console.log(req.params);
+
   try {
     const book = await Book.findOne({
       where: { id },
@@ -54,11 +98,11 @@ app.get('/books/:id', async (req, res) => {
     return res.json(book);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong3' });
   }
 });
 
-app.delete('/book/:id', async (req, res) => {
+app.delete('/books/:id/delete', async (req, res) => {
   const id = req.params.id;
   try {
     const book = await Book.findOne({ where: { id } });
@@ -68,11 +112,11 @@ app.delete('/book/:id', async (req, res) => {
     return res.json({ message: 'Book deleted!' });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong4' });
   }
 });
 
-app.put('/book/:id', async (req, res) => {
+app.put('/books/:id/update', async (req, res) => {
   //is id ok? revert to id/uuid?
 
   const { id, title, isbn, description } = req.body;
@@ -89,23 +133,8 @@ app.put('/book/:id', async (req, res) => {
     return res.json(book);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong5' });
   }
-});
+}); */
 
-const PORT = process.env.PORT || 8080;
-/* app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`);
-});
- */
-
-app.listen(PORT, async () => {
-  console.log('server is up!');
-  try {
-    await sequelize.authenticate();
-    //await sequelize.sync({ force: true })
-    console.log('database connected!');
-  } catch (err) {
-    console.log(err);
-  }
-});
+module.exports = app;
