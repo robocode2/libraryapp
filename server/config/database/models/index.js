@@ -10,6 +10,8 @@ const db = {};
 
 let sequelize;
 if (config.url) {
+  console.log(env);
+  console.log(config.url);
   console.log(config.url);
   sequelize = new Sequelize(config.url, config);
 } else {
