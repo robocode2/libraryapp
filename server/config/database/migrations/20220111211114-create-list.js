@@ -9,7 +9,8 @@ module.exports = {
         type: DataTypes.INTEGER,
       },
       userid: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,

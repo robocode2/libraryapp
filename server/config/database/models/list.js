@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      List.belongsTo(models.User, { foreignKey: 'id', as: 'userlist' });
-      List.belongsToMany(models.Book, { through: 'user_lists', foreignKey: 'id', as: 'booklist_entry' });
+      List.belongsTo(models.User, { foreignKey: 'userid', as: 'user' });
+      List.belongsToMany(models.Book, { through: 'user_lists', foreignKey: 'id', as: 'bookid' });
     }
   }
   List.init(
@@ -22,8 +22,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4, //refers to user ? default values ?
+        type: DataTypes.STRING,
+
+        //refers to user ? default values ?
         allowNull: false,
       },
       name: {

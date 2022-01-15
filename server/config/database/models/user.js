@@ -9,12 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.List, { foreignKey: 'uid', as: 'user' });
+      //User.hasMany(models.List, { foreignKey: 'uid', as: 'user' });
+      User.hasMany(models.List, { foreignKey: 'id', as: 'list' }); //you probably meant list.id
     }
   }
   User.init(
     {
-      uid: {
+      uuid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -25,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         type: DataTypes.INTEGER,
       },
+      userid: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+
       displayName: {
         allowNull: false,
         type: DataTypes.STRING,
