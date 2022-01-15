@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      List.belongsToOne(models.User, { foreignKey: 'id', as: 'userlist' });
+      List.belongsTo(models.User, { foreignKey: 'id', as: 'userlist' });
       List.belongsToMany(models.Book, { through: 'user_lists', foreignKey: 'id', as: 'booklist_entry' });
     }
   }
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       userid: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4, //refers to user ? default values ?
         allowNull: false,
       },
       name: {

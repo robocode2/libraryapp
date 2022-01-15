@@ -69,7 +69,7 @@ exports.category_update_post = async (req, res) => {
 
     category.id = id;
     category.name = name;
-    description.description = description;
+    category.description = description;
 
     await category.save();
 

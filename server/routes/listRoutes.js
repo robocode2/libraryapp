@@ -15,7 +15,7 @@ router.put('/list/:id', list_controller.list_update_post);
 router.get('/list/:id', list_controller.list_detail);
 
 // GET request for list of all list items.
-router.get('/lists', list_controller.list_list);
+router.get('/lists', list_controller.lists_list);
 
 //Add book to list
 

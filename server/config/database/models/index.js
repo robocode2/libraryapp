@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const envConfigs = require('../config/config.js');
+const envConfigs = require('../config/config');
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
@@ -11,7 +11,7 @@ const db = {};
 let sequelize;
 if (config.url) {
   console.log(env);
-  console.log(config.url);
+  console.log('guten tag' + config.url);
   console.log(config.url);
   sequelize = new Sequelize(config.url, config);
 } else {

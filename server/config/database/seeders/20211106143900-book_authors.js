@@ -104,6 +104,7 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+
         {
           id: '15',
           bookId: '15',
@@ -112,13 +113,14 @@ module.exports = {
           updatedAt: new Date(),
         },
 
-        {
+        /* {
           id: '16',
           bookId: '16',
           authorId: '5',
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+
         {
           id: '17',
           bookId: '17',
@@ -126,7 +128,7 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-
+ */
         {
           id: '18',
           bookId: '18',

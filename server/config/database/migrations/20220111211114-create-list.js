@@ -8,11 +8,9 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-
       userid: {
-        type: Sequelize.UUID,
+        type: DataTypes.UUID,
       },
-
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,14 +19,13 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
     });
   },
