@@ -4,15 +4,11 @@ const { Book, User } = require('../config/database/models');
 
 class Middleware {
   async getJWTToken(req, res) {
-    console.log(req.user);
-    const useruid = req.user.uid;
-
     const token = req.headers.authorization.split(' ')[1];
     const decodedValue = await admin.auth().verifyIdToken(token);
     const uid = decodedValue.uid;
-    console.log('BABY BABY BABY sfsfsfsf' + uid);
 
-    return useruid;
+    return uid;
   }
 
   async decodeToken(req, res, next) {

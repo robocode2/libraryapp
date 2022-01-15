@@ -18,17 +18,10 @@ exports.lists_list = async (req, res) => {
 exports.list_create_post = async (req, res) => {
   try {
     const userid = await middleware.getJWTToken(req, res);
-
-    console.log('HEEEEEEEEEEEEEEY' + userid);
-    const id = 1;
     const { name, description } = req.body;
-
     const date1 = new Date();
     const date2 = new Date();
-    const newList = { id, userid, name, description, date1, date2 };
-    console.log('HEEEEEEE124124124124124214EEEEEEEY' + id + userid + name + description);
-    const list = await List.create({ id, userid, name, description, date1, date2 });
-
+    const list = await List.create({ userid, name, description, date1, date2 });
     return res.status(201).json(list);
   } catch (err) {
     console.log(err);
