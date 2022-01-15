@@ -15,13 +15,13 @@ exports.book_list = async (req, res) => {
 
 // Handle book create on POST.
 exports.book_create_post = async (req, res) => {
-  const { id, title, isbn, description } = req.body; //do I need id ?yesitseems
+  const { title, isbn, description } = req.body; //do I need id ?yesitseems
 
   const date1 = new Date();
   const date2 = new Date();
 
   try {
-    const book = await Book.create({ id, title, isbn, description, date1, date2 });
+    const book = await Book.create({ title, isbn, description, date1, date2 });
 
     return res.status(201).json(book);
   } catch (err) {
