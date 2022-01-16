@@ -3,7 +3,22 @@ const admin = require('../config/firebase/firebase-config');
 const { Book, User } = require('../config/database/models');
 
 class Middleware {
-  async getJWTToken(req, res) {
+  async decodeIDToken(req, res, next) {
+    if (req.headers?.authorization?.startsWith('Bearer ')) {
+      const idToken = req.headers.authorization.split(' ')[1];
+
+      try {
+        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        req['currentUser'] = decodedToken;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    next();
+  }
+
+  async getUserId(req, res) {
     const token = req.headers.authorization.split(' ')[1];
     const decodedValue = await admin.auth().verifyIdToken(token);
     const uid = decodedValue.uid;
