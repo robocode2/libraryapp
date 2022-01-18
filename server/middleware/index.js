@@ -1,7 +1,31 @@
 const admin = require('../config/firebase/firebase-config');
+
 const { Book, User } = require('../config/database/models');
 
 class Middleware {
+  async decodeIDToken(req, res, next) {
+    if (req.headers?.authorization?.startsWith('Bearer ')) {
+      const idToken = req.headers.authorization.split(' ')[1];
+
+      try {
+        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        req['currentUser'] = decodedToken;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    next();
+  }
+
+  async getUserId(req, res) {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedValue = await admin.auth().verifyIdToken(token);
+    const uid = decodedValue.uid;
+
+    return uid;
+  }
+
   async decodeToken(req, res, next) {
     console.log(req.headers);
     const token = req.headers.authorization.split(' ')[1];
@@ -41,7 +65,6 @@ class Middleware {
         User.findOne({ where: { Uid }, attributes: ['uid'] })
           .then((token) => token !== null)
           .then((isUnique) => isUnique);
-
       console.log(isUIdUnique(Uid));
       if (!isUIdUnique(Uid)) {
         const dbuser = User.create({ useruid, userid, userdisplayname });
@@ -63,13 +86,11 @@ class Middleware {
       }); */
       /* if (!user) {
         console.log('loosafsafak at me here');
-
         const useruid = req.user.uid;
         const userid = '1';
         const userdisplayname = req.user.displayname;
         const dbuser = await User.create({ useruid, userid, userdisplayname });
         console.log(dbuser);
-
         return next();
       } */
       if (user != null) {

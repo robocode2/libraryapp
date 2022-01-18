@@ -10,15 +10,23 @@ const app = express();
 const indexRouter = require('./server/routes/index.js');
 const bookRoutes = require('./server/routes/booksRoutes');
 const categoryRoutes = require('./server/routes/categoryRoutes');
+const listRoutes = require('./server/routes/listRoutes');
+const entriesRoutes = require('./server/routes/entriesRoutes');
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
+//app.use(middleware.decodeToken);
+//app.use(middleware.findOrCreateUser);
+
+app.use(middleware.decodeIDToken);
+
 app.use('/', indexRouter);
 app.use('/', bookRoutes);
 app.use('/', categoryRoutes);
-
+app.use('/', listRoutes);
+app.use('/', entriesRoutes);
 /* app.use((req, res, next) => {
   const error = new Error('Not ssfffound');
   error.status = 404;
