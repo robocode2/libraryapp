@@ -1,8 +1,9 @@
 # Project Title
 
-Library CODE App
-https://librarycode.netlify.app/
-https://library-app-code.herokuapp.com/
+### Library CODE App
+
+- https://librarycode.netlify.app/
+- https://library-app-code.herokuapp.com/
 
 ## Project Description
 
@@ -10,13 +11,10 @@ A simple “book list” or “bookshelf” web app where a user can login/sign 
 
 ## Project Stack
 
-### \*Backend : PostgreSQL, Sequelize (ORM), NodeJS, Express, Firebase SDK
-
-### \*Frontend : ReactJS, Firebase
-
-### \*Testing : Jest, Supertest
-
-### \*Deployment : Heroku (Backend), Netlify (Frontend)
+- Backend : PostgreSQL, Sequelize (ORM), NodeJS, Express, Firebase SDK
+- Frontend : ReactJS, Firebase
+- Testing : Jest, Supertest
+- Deployment : Heroku (Backend), Netlify (Frontend)
 
 ## Project Request Flow
 
@@ -29,20 +27,22 @@ A simple “book list” or “bookshelf” web app where a user can login/sign 
 ## Project API Endpoints
 
 **React App**
-_/signIn : access Firebase pop-up sign-in component, redirects to
-_/browse : shows all books in database
-_/profile : view own user profile and lists
-_/signOut : signs user out, redirects to /signIn
+
+- \_/signIn : access Firebase pop-up sign-in component, redirects to
+- \_/browse : shows all books in database
+- \_/profile : view own user profile and lists
+- \_/signOut : signs user out, redirects to /signIn
 
 **API Resources**
-_/books/create
-_/books/:id
-_/books
-_/lists : gets all user's lists
-_/lists/create
-_/lists/:id
-_/entries/create
-_/entries/:id
+
+- \_/books/create
+- \_/books/:id
+- \_/books
+- \_/lists : gets all user's lists
+- \_/lists/create
+- \_/lists/:id
+- \_/entries/create
+- \_/entries/:id
 
 ## In the project directory, you can run:
 
