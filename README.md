@@ -15,11 +15,11 @@ Deployment : Heroku (Backend), Netlify (Frontend)
 
 ## Project Request Flow
 
-![Project architecture](https://drive.google.com/file/d/1Y0gwIT1u86Tp51vuzhuXaIsMMjcRhTGz/view?usp=sharing)
+![Project architecture](https://i.ibb.co/YdK5HW2/library-app.jpg)
 
 ## Project ER Model
 
-![ER Model](https://drive.google.com/file/d/1GOkmgFYUiUaULNbudX7dpsjUhTA5BfsV/view?usp=sharing)
+![ER Model](https://i.ibb.co/kQvm1R3/Library-app-vpd-3.png)
 
 ## Project API Endpoints
 
