@@ -24,14 +24,16 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
+
         type: DataTypes.INTEGER,
       },
       listId: {
+        primaryKey: true,
         type: DataTypes.INTEGER,
         allowNull: false,
       },
       bookId: {
+        primaryKey: true,
         type: DataTypes.INTEGER,
         allowNull: false,
       },
