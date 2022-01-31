@@ -15,10 +15,12 @@ module.exports = {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
+        notEmpty: true,
       },
       createdAt: {
         allowNull: false,
