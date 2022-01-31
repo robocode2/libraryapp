@@ -30,10 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
+        notEmpty: true,
       },
     },
     {

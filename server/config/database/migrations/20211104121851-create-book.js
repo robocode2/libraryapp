@@ -12,14 +12,17 @@ module.exports = {
       title: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
       },
       isbn: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
+        notEmpty: true,
       },
 
       createdAt: {

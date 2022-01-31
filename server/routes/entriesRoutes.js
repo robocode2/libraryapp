@@ -8,11 +8,11 @@ router.post('/entries/create', entries_controller.list_add_book);
 
 // remove book from a list
 // POST request to delete book entry from (which?) list.
-router.delete('/entries/:listid/:bookid', entries_controller.list_remove_book);
+//router.delete('/entries/:listid/:bookid', entries_controller.list_remove_book);
+router.post('/entries/delete', entries_controller.list_remove_book);
 
-// get all books in a list
 // GET request for one list.
-router.get('/entries/:listname', entries_controller.list_entries);
+router.get('/entries/:id', entries_controller.list_entries);
 
 // delete a list, delete all entries with listid
 // POST request to delete list. // connect to list controllers

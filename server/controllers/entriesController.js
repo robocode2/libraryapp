@@ -5,7 +5,6 @@ const middleware = require('../middleware/index');
 
 exports.list_add_book = async (req, res) => {
   const { list_id, book_id } = req.body;
-  console.log(list_id, book_id, 'way to go');
   const date1 = new Date();
   const date2 = new Date();
   try {
@@ -18,9 +17,9 @@ exports.list_add_book = async (req, res) => {
 };
 
 exports.list_remove_book = async (req, res) => {
-  const { list_id, book_id } = req.query;
+  const { list_id, book_id } = req.body;
   try {
-    const entry = await Entry.findOne({ where: { listId: list_id, bookId: book_id } });
+    const entry = await Entries.findOne({ where: { listId: list_id, bookId: book_id } });
     await entry.destroy();
     return res.json({ message: 'Entry deleted!' });
   } catch (err) {
@@ -30,9 +29,9 @@ exports.list_remove_book = async (req, res) => {
 };
 
 exports.list_entries = async (req, res) => {
-  const list_id = req.query.list_id;
+  const id = req.params.id;
   try {
-    const entries = await Entry.findAll({ where: { listId: list_id } });
+    const entries = await Entries.findAll({ where: { listId: id } });
     return res.status(201).json(entries);
   } catch (err) {
     console.log(err);

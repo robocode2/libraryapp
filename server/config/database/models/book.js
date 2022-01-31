@@ -27,14 +27,17 @@ module.exports = (sequelize, DataTypes) => {
       title: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
       },
       isbn: {
         type: DataTypes.STRING,
         allowNull: false,
+        notEmpty: true,
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
+        notEmpty: true,
       },
     },
     {
