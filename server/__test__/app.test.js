@@ -25,7 +25,7 @@ describe('testing bookAPI ', () => {
   //Book CRUD
 
   test('ADD new book', async () => {
-    const res = await request(app).post('/book/create').send({
+    const res = await request(app).post('/books/create').send({
       id: '1',
       title: 'Jane Eyre',
       isbn: '1231421251212',
@@ -35,13 +35,13 @@ describe('testing bookAPI ', () => {
   });
 
   test('GET specific book from database', async () => {
-    const response = await request(app).get('/book/1');
+    const response = await request(app).get('/books/1');
     console.log(response.text);
     expect(response.text).toEqual(expect.stringContaining('Jane Eyre'));
   });
 
   test('UPDATE book', async () => {
-    const res = await request(app).put('/book/1').send({
+    const res = await request(app).put('/books/1').send({
       id: '1',
       title: 'Jane Eyre',
       isbn: 'blablabla',
@@ -51,7 +51,7 @@ describe('testing bookAPI ', () => {
   });
 
   test('DELETE specific book', async () => {
-    const response = await request(app).delete('/book/1');
+    const response = await request(app).delete('/books/1');
     console.log(response.text);
     expect(response.text).toEqual(expect.stringContaining('Book deleted'));
   });
