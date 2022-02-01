@@ -19,10 +19,12 @@ A simple “book list” or “bookshelf” web app where a user can login/sign 
 ## Project Request Flow
 
 ![Project architecture](https://i.ibb.co/YdK5HW2/library-app.jpg)
+https://i.ibb.co/YdK5HW2/library-app.jpg
 
 ## Project ER Model
 
 ![ER Model](https://i.ibb.co/kQvm1R3/Library-app-vpd-3.png)
+https://i.ibb.co/kQvm1R3/Library-app-vpd-3.png
 
 ## Project API Endpoints
 
