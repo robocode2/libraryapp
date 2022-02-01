@@ -1,11 +1,38 @@
-const { List } = require('../config/database/models');
+const { List, User } = require('../config/database/models');
 const admin = require('../config/firebase/firebase-config');
 
 const middleware = require('../middleware/index');
+const { user_create } = require('./userController');
 
 // CALL CONSEQUENCE METHODS FROM ENTRIES_CONTROLLER
 
 // Handle list create .
+/* exports.list_create = async (req, res) => {
+  const user = req['currentUser'];
+  console.log('good morning honey' + user.uid);
+  if (!user) {
+    res.status(403).send('You must be logged in!');
+  }
+  try {
+    const user_id = user.uid;
+    const username = user.name;
+    const dbUser = await User.findOne({ where: { userid: user_id } });
+    if (!dbUser) {
+      const newUser = await User.create({ userid: user_id, displayName: username });
+      console.log(newUser);
+    }
+    const { name, description } = req.body;
+    const date1 = new Date();
+    const date2 = new Date();
+    const newList = await List.create({ name, description, date1, date2, userid: user_id });
+    return res.status(201).json(newList);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+};
+ */
+
 exports.list_create = async (req, res) => {
   const user = req['currentUser'];
   console.log('good morning honey' + user.uid);
@@ -13,13 +40,12 @@ exports.list_create = async (req, res) => {
     res.status(403).send('You must be logged in!');
   }
   try {
+    await user_create(req, res);
     const { name, description } = req.body;
-    //const userid = await middleware.getUserId(req, res);
-    const userid = user.uid;
     const date1 = new Date();
     const date2 = new Date();
-    const list = await List.create({ userid, name, description, date1, date2 });
-    return res.status(201).json(list);
+    const newList = await List.create({ name, description, date1, date2, userid: user_id });
+    return res.status(201).json(newList);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);

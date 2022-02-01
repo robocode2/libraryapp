@@ -8,9 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      List.belongsTo(models.User, { foreignKey: 'userid', as: 'user' });
-      List.belongsToMany(models.Book, { through: 'user_lists', foreignKey: 'id', as: 'bookid' });
+      List.belongsToMany(models.Book, { through: 'Entries', as: 'Booklists' });
     }
   }
   List.init(
@@ -20,12 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
-      },
-      userid: {
-        type: DataTypes.STRING,
-
-        //refers to user ? default values ?
-        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,

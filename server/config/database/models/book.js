@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
-      Book.belongsToMany(models.Author, { through: 'book_authors', foreignKey: 'id', as: 'book' });
-      Book.belongsToMany(models.Category, { through: 'book_categories', foreignKey: 'id', as: 'boook' });
-      Book.belongsToMany(models.List, { through: 'user_lists', foreignKey: 'id', as: 'userbook' });
+      //Book.belongsToMany(models.Author, { as: 'Authors', through: 'book_authors', foreignKey: 'id', otherKey: 'id' });
+      //Book.belongsToMany(models.Category, { as: 'Tags', through: 'book_categories', foreignKey: 'id', otherKey: 'id' });
+      Book.belongsToMany(models.List, { through: 'Entries', as: 'Books' });
     }
   }
   Book.init(

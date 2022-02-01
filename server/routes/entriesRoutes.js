@@ -16,7 +16,7 @@ router.get('/entries/:id', entries_controller.list_entries);
 
 // delete a list, delete all entries with listid
 // POST request to delete list. // connect to list controllers
-router.delete('/entries/delete/:listid', entries_controller.list_delete);
+//router.delete('/entries/delete/:listid', entries_controller.list_delete);
 
 // if a user is deleted from the database, delete all related entries
 //OnCascade?
