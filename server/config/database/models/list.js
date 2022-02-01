@@ -8,13 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      //User.belongsToMany(Project, { as: 'Tasks', through: 'worker_tasks', foreignKey: 'userId', otherKey: 'projectId'})
-
-      // define association here
-      //List.belongsTo(models.User, { foreignKey: 'userid', as: 'owner', targetKey: 'user_id' });
-      //List.hasMany(models.Book, { through: 'entries', foreignKey: 'id', as: 'bookid', targetKey: 'bookId' });
       List.belongsToMany(models.Book, { through: 'Entries', as: 'Booklists' });
-      //List.belongsTo(models.User);
     }
   }
   List.init(

@@ -8,7 +8,7 @@ exports.list_add_book = async (req, res) => {
   const date1 = new Date();
   const date2 = new Date();
   try {
-    const bookentry = await Entries.create({ listId: list_id, bookId: book_id, date1, date2 });
+    const bookentry = await Entries.create({ ListId: list_id, BookId: book_id, date1, date2 });
     return res.status(201).json(bookentry);
   } catch (err) {
     console.log(err);
@@ -19,7 +19,7 @@ exports.list_add_book = async (req, res) => {
 exports.list_remove_book = async (req, res) => {
   const { list_id, book_id } = req.body;
   try {
-    const entry = await Entries.findOne({ where: { listId: list_id, bookId: book_id } });
+    const entry = await Entries.findOne({ where: { ListId: list_id, BookId: book_id } });
     await entry.destroy();
     return res.json({ message: 'Entry deleted!' });
   } catch (err) {
@@ -31,7 +31,7 @@ exports.list_remove_book = async (req, res) => {
 exports.list_entries = async (req, res) => {
   const id = req.params.id;
   try {
-    const entries = await Entries.findAll({ where: { listId: id } });
+    const entries = await Entries.findAll({ where: { ListId: id } });
     return res.status(201).json(entries);
   } catch (err) {
     console.log(err);

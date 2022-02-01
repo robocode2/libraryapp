@@ -56,38 +56,3 @@ describe('testing bookAPI ', () => {
     expect(response.text).toEqual(expect.stringContaining('Book deleted'));
   });
 });
-//Category CRUD
-
-describe('testing categoryAPI ', () => {
-  test('ADD new category', async () => {
-    const res = await request(app).post('/category/create').send({
-      id: '1',
-      name: 'fantasy',
-
-      description: 'fantastical worlds',
-    });
-    expect(res.text).toEqual(expect.stringContaining('fantasy'));
-  });
-
-  test('GET specific category from database', async () => {
-    const response = await request(app).get('/category/1');
-    console.log(response.text);
-    expect(response.text).toEqual(expect.stringContaining('fantasy'));
-  });
-
-  test('UPDATE category', async () => {
-    const res = await request(app).put('/category/1').send({
-      id: '1',
-      name: 'totalitarian fantasy',
-
-      description: 'fantastical worlds',
-    });
-    expect(res.text).toEqual(expect.stringContaining('totalitarian'));
-  });
-
-  test('DELETE specific category', async () => {
-    const response = await request(app).delete('/category/1');
-    console.log(response.text);
-    expect(response.text).toEqual(expect.stringContaining('Category deleted'));
-  });
-});
