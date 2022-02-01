@@ -10,30 +10,30 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       //User.hasMany(models.List, { foreignKey: 'uid', as: 'user' });
-      User.hasMany(models.List, { foreignKey: 'id', as: 'list' }); //you probably meant list.id
+      User.hasMany(models.List, { foreignKey: 'userid' }); //you probably meant list.id
     }
   }
   User.init(
     {
+      userid: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        primaryKey: true,
+      },
       uuid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
-        primaryKey: true,
       },
       id: {
         allowNull: false,
         autoIncrement: true,
         type: DataTypes.INTEGER,
       },
-      userid: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-
       displayName: {
         allowNull: false,
         type: DataTypes.STRING,
+        unique: true,
       },
     },
     {

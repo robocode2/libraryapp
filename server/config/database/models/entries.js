@@ -9,33 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Entries.belongsTo(models.Book, {
-        foreignKey: 'id',
-        as: 'book',
-      });
-      Entries.belongsTo(models.List, {
-        foreignKey: 'id',
-        as: 'list',
-      });
     }
   }
   Entries.init(
     {
       id: {
+        primaryKey: true,
         allowNull: false,
         autoIncrement: true,
-
         type: DataTypes.INTEGER,
       },
-      listId: {
-        primaryKey: true,
+      ListId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        unique: true,
       },
-      bookId: {
-        primaryKey: true,
+      BookId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        unique: true,
       },
     },
     {
