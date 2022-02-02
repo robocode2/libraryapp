@@ -50,10 +50,10 @@ exports.user_create = async (req, res) => {
     if (!dbUser) {
       const newUser = await User.create({ userid: user_id, displayName: username });
       console.log(newUser);
+      //return res.status(201).json(newUser);
     }
-    return res.status(201).json(newUser);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    //return res.status(500).json(err);
   }
 };
