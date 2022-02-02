@@ -8,7 +8,7 @@ router.post('/lists/create', list_controller.list_create);
 
 //router.put('/lists/:name', list_controller.list_update);
 
-router.get('/lists/:name', list_controller.list_details);
+router.get('/lists/:id', list_controller.list_details);
 
 router.get('/lists', list_controller.lists_list);
 

@@ -4,43 +4,14 @@ const admin = require('../config/firebase/firebase-config');
 const middleware = require('../middleware/index');
 const { user_create } = require('./userController');
 
-// CALL CONSEQUENCE METHODS FROM ENTRIES_CONTROLLER
-
-// Handle list create .
-/* exports.list_create = async (req, res) => {
-  const user = req['currentUser'];
-  console.log('good morning honey' + user.uid);
-  if (!user) {
-    res.status(403).send('You must be logged in!');
-  }
-  try {
-    const user_id = user.uid;
-    const username = user.name;
-    const dbUser = await User.findOne({ where: { userid: user_id } });
-    if (!dbUser) {
-      const newUser = await User.create({ userid: user_id, displayName: username });
-      console.log(newUser);
-    }
-    const { name, description } = req.body;
-    const date1 = new Date();
-    const date2 = new Date();
-    const newList = await List.create({ name, description, date1, date2, userid: user_id });
-    return res.status(201).json(newList);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json(err);
-  }
-};
- */
-
 exports.list_create = async (req, res) => {
   const user = req['currentUser'];
-  console.log('good morning honey' + user.uid);
   if (!user) {
     res.status(403).send('You must be logged in!');
   }
   try {
     await user_create(req, res);
+    const user_id = user.uid;
     const { name, description } = req.body;
     const date1 = new Date();
     const date2 = new Date();
@@ -48,7 +19,7 @@ exports.list_create = async (req, res) => {
     return res.status(201).json(newList);
   } catch (err) {
     console.log(err);
-    return res.status(500).json(err);
+    return res.status(500).json({ error: 'Something went wrong' });
   }
 };
 
@@ -94,7 +65,7 @@ exports.lists_list = async (req, res) => {
     return res.json(lists);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).send('Something went wrong');
   }
 };
 
@@ -106,11 +77,11 @@ exports.list_details = async (req, res) => {
     res.status(403).send('You must be logged in!');
   }
   //name?
-  const list_name = req.params.list_name; //name?
+  const list_id = req.params.id; //name?
   //LIST DETAILS
   try {
     const list = await List.findOne({
-      where: { userid: user.uid, name: list_name },
+      where: { userid: user.uid, id: list_id },
     });
     // ADD :
     // GRAB ALL BOOK ENTRIES WITH THAT LIST ID FROM THE 3RD DATABASE TABLE
@@ -122,3 +93,32 @@ exports.list_details = async (req, res) => {
     return res.status(500).json({ error: 'Something went wrong' });
   }
 };
+
+// CALL CONSEQUENCE METHODS FROM ENTRIES_CONTROLLER
+
+// Handle list create .
+/* exports.list_create = async (req, res) => {
+  const user = req['currentUser'];
+  console.log('good morning honey' + user.uid);
+  if (!user) {
+    res.status(403).send('You must be logged in!');
+  }
+  try {
+    const user_id = user.uid;
+    const username = user.name;
+    const dbUser = await User.findOne({ where: { userid: user_id } });
+    if (!dbUser) {
+      const newUser = await User.create({ userid: user_id, displayName: username });
+      console.log(newUser);
+    }
+    const { name, description } = req.body;
+    const date1 = new Date();
+    const date2 = new Date();
+    const newList = await List.create({ name, description, date1, date2, userid: user_id });
+    return res.status(201).json(newList);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+};
+ */
