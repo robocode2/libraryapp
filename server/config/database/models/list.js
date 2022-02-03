@@ -23,13 +23,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         notEmpty: true,
+        validate: {
+          len: {
+            args: [1, 150],
+            msg: 'Please enter a list name between 1 and 100 charcters',
+          },
+        },
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
         notEmpty: true,
+        validate: {
+          len: {
+            args: [1, 150],
+            msg: 'Please enter a list description between 1 and 100 charcters',
+          },
+        },
       },
     },
+
     {
       sequelize,
       tableName: 'list',

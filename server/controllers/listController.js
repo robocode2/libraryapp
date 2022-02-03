@@ -18,8 +18,20 @@ exports.list_create = async (req, res) => {
     const newList = await List.create({ name, description, date1, date2, userid: user_id });
     return res.status(201).json(newList);
   } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
+    if (err.name === 'SequelizeValidationError') {
+      const errors = err.errors;
+      const errorList = errors.map((e) => {
+        let obj = {};
+        obj[e] = e.message;
+        return obj;
+      });
+      return res.status(400).json({
+        success: false,
+        msg: errorList,
+      });
+    } else {
+      next(new ErrorResponse(`Sorry, could not save ${req.body.title}`, 404));
+    }
   }
 };
 
@@ -29,6 +41,9 @@ exports.list_delete = async (req, res) => {
   const id = req.params.id;
   try {
     const list = await List.findOne({ where: { id } });
+    //{
+    //if list is null
+    //}
     await list.destroy(); //onCascade? all books that contain this tag ?
     return res.json({ message: 'list deleted!' });
   } catch (err) {
@@ -76,18 +91,17 @@ exports.list_details = async (req, res) => {
   if (!user) {
     res.status(403).send('You must be logged in!');
   }
-  //name?
   const list_id = req.params.id; //name?
-  //LIST DETAILS
+
   try {
     const list = await List.findOne({
       where: { userid: user.uid, id: list_id },
     });
-    // ADD :
-    // GRAB ALL BOOK ENTRIES WITH THAT LIST ID FROM THE 3RD DATABASE TABLE
-    // COMBINE THEM INTO OBJECT AND RETURN
-    // OR CREATE EXTRA ENDPOINT /lists/:listname/books
-    return res.json(list);
+    if (list == null) {
+      res.status(500).json({ error: 'This list does not exist' });
+    } else {
+      return res.json(list);
+    }
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });

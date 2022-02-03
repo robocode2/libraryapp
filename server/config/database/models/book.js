@@ -28,16 +28,34 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         notEmpty: true,
+        validate: {
+          len: {
+            args: [1, 150],
+            msg: 'Please enter a title between 1 and 250 charcters ',
+          },
+        },
       },
       isbn: {
         type: DataTypes.STRING,
         allowNull: false,
         notEmpty: true,
+        validate: {
+          len: {
+            args: [13],
+            msg: 'Please enter isbn 13 charcters ',
+          },
+        },
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
         notEmpty: true,
+        validate: {
+          len: {
+            args: [1, 150],
+            msg: 'Please enter book description',
+          },
+        },
       },
     },
     {
