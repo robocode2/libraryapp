@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../app');
-const db = require('../config/database/models/index');
+const db = require('../database/models/index');
 
 beforeAll(async () => {
   await db.sequelize.sync({ force: true });

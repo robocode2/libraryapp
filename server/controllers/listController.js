@@ -1,7 +1,7 @@
-const admin = require('../config/firebase/firebase-config');
+const admin = require('../../firebase-config');
 const middleware = require('../middleware/auth');
 const { createUser } = require('./userController');
-const { List } = require('../config/database/models');
+const { List } = require('../database/models');
 
 exports.createList = async (req, res) => {
   const user = req['currentUser'];

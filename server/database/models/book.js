@@ -1,17 +1,12 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class List extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Book extends Model {
     static associate(models) {
-      List.belongsToMany(models.Book, { through: 'Entries', as: 'Booklists' });
+      Book.belongsToMany(models.List, { through: 'Entries', as: 'Books' });
     }
   }
-  List.init(
+  Book.init(
     {
       id: {
         allowNull: false,
@@ -19,14 +14,26 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      name: {
+
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
         notEmpty: true,
         validate: {
           len: {
             args: [1, 150],
-            msg: 'Please enter a list name between 1 and 100 charcters',
+            msg: 'Please enter a title between 1 and 250 charcters ',
+          },
+        },
+      },
+      isbn: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        notEmpty: true,
+        validate: {
+          len: {
+            args: [13],
+            msg: 'Please enter isbn 13 charcters ',
           },
         },
       },
@@ -37,17 +44,16 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [1, 150],
-            msg: 'Please enter a list description between 1 and 100 charcters',
+            msg: 'Please enter book description',
           },
         },
       },
     },
-
     {
       sequelize,
-      tableName: 'list',
-      modelName: 'List',
+      tableName: 'book',
+      modelName: 'Book',
     }
   );
-  return List;
+  return Book;
 };

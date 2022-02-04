@@ -1,5 +1,5 @@
-const { Entries } = require('../config/database/models');
-const admin = require('../config/firebase/firebase-config');
+const { Entries } = require('../database/models');
+const admin = require('../../firebase-config');
 
 const middleware = require('../middleware/auth');
 

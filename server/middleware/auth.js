@@ -1,4 +1,4 @@
-const admin = require('../config/firebase/firebase-config');
+const admin = require('../../firebase-config');
 class Middleware {
   async decodeIDToken(req, res, next) {
     if (req.headers?.authorization?.startsWith('Bearer ')) {

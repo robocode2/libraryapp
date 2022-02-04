@@ -10,7 +10,6 @@ module.exports = {
         {
           uuid: 'd3e45c12-19bf-485d-89f8-e1f9ebd120f4',
           userid: 'FaAMohHFTwftFrApJnjcEt640k92',
-
           displayName: 'Rabia Abbas',
           createdAt: new Date(),
           updatedAt: new Date(),
