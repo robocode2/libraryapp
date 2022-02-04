@@ -1,28 +1,21 @@
 const { Book } = require('../config/database/models');
 
-// Display list of all books.
-exports.book_list = async (req, res) => {
-  console.log('were her at all books');
-  console.log(req.headers);
+exports.getBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
     return res.json(books);
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
   }
 };
 
-exports.book_create_post = async (req, res) => {
-  const { title, isbn, description } = req.body; //do I need id ?yesitseems
-
-  //I should do validation here
-  const date1 = new Date();
-  const date2 = new Date();
-
+exports.createBook = async (req, res) => {
+  const { title, isbn, description } = req.body;
+  const createdAt = new Date();
+  const updatedAt = new Date();
   try {
-    const book = await Book.create({ title, isbn, description, date1, date2 });
-    return res.status(201).json(book);
+    const newBook = await Book.create({ title, isbn, description, createdAt, updatedAt });
+    return res.status(201).json(newBook);
   } catch (err) {
     if (err.name === 'SequelizeValidationError') {
       const errors = err.errors;
@@ -41,77 +34,43 @@ exports.book_create_post = async (req, res) => {
   }
 };
 
-// Handle book create on POST.
-/* 
-exports.book_create_post = async (req, res) => {
-  const { title, isbn, description } = req.body; //do I need id ?yesitseems
-
-  const date1 = new Date();
-  const date2 = new Date();
-
+exports.getBook = async (req, res) => {
+  const BookId = req.params.id;
   try {
-    const book = await Book.create({ title, isbn, description, date1, date2 });
-
-    return res.status(201).json(book);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json(err);
-  }
-}; */
-
-// Display detail page for a specific book.
-exports.book_detail = async (req, res) => {
-  const BookId = req.params.id; //or by isbn?
-  console.log(req.params);
-
-  try {
-    const book = await Book.findOne({
+    const queryBook = await Book.findOne({
       where: { id: BookId },
     });
-    if (book == null) {
+    if (queryBook == null) {
       res.status(500).json({ error: 'This book does not exist' });
     } else {
-      return res.json(book);
+      return res.json(queryBook);
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
   }
 };
 
-// Handle book delete on POST.
-exports.book_delete_post = async (req, res) => {
+exports.deleteBook = async (req, res) => {
   const id = req.params.id;
   try {
     const book = await Book.findOne({ where: { id } });
-
-    await book.destroy(); //onCascade?
-
+    await book.destroy();
     return res.json({ message: 'Book deleted!' });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
   }
 };
-// Handle book update on POST.
-exports.book_update_post = async (req, res) => {
-  //is id ok? revert to id/uuid?
 
-  // ttest individual cases
-
+exports.updateBook = async (req, res) => {
   const BookId = req.params.id;
-
   const { title, isbn, description } = req.body;
   try {
     const book = await Book.findOne({ where: { id: BookId } });
-    console.log(book);
-
     book.title = title;
     book.isbn = isbn;
     book.description = description;
-
     await book.save();
-
     return res.json(book);
   } catch (err) {
     console.log(err);

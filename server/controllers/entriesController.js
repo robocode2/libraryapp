@@ -1,50 +1,48 @@
 const { Entries } = require('../config/database/models');
 const admin = require('../config/firebase/firebase-config');
 
-const middleware = require('../middleware/index');
+const middleware = require('../middleware/auth');
 
-exports.list_add_book = async (req, res) => {
+exports.addBook = async (req, res) => {
   const user = req['currentUser'];
   if (!user) {
     res.status(403).send('You must be logged in!');
   }
   const { list_id, book_id } = req.body;
-  const date1 = new Date();
-  const date2 = new Date();
+  const createdAt = new Date();
+  const updatedAt = new Date();
   try {
-    const bookentry = await Entries.create({ ListId: list_id, BookId: book_id, date1, date2 });
-    return res.status(201).json(bookentry);
+    const newEntry = await Entries.create({ ListId: list_id, BookId: book_id, createdAt, updatedAt });
+    return res.status(201).json(newEntry);
   } catch (err) {
-    console.log(err);
     return res.status(500).json(err);
   }
 };
 
-exports.list_remove_book = async (req, res) => {
+exports.removeBook = async (req, res) => {
   const user = req['currentUser'];
   if (!user) {
     res.status(403).send('You must be logged in!');
   }
   const { list_id, book_id } = req.body;
   try {
-    const entry = await Entries.findOne({ where: { ListId: list_id, BookId: book_id } });
-    await entry.destroy();
+    const book = await Entries.findOne({ where: { ListId: list_id, BookId: book_id } });
+    await book.destroy();
     return res.json({ message: 'Entry deleted!' });
   } catch (err) {
-    console.log(err);
     return res.status(500).json(err);
   }
 };
 
-exports.list_entries = async (req, res) => {
+exports.getListEntries = async (req, res) => {
   const user = req['currentUser'];
   if (!user) {
     res.status(403).send('You must be logged in!');
   }
   const id = req.params.id;
   try {
-    const entries = await Entries.findAll({ where: { ListId: id } });
-    return res.status(201).json(entries);
+    const listEntries = await Entries.findAll({ where: { ListId: id } });
+    return res.status(201).json(listEntries);
   } catch (err) {
     if (err.name === 'SequelizeValidationError') {
       const errors = err.errors;
@@ -62,44 +60,3 @@ exports.list_entries = async (req, res) => {
     }
   }
 };
-/*  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
-  }
-};
- */
-exports.list_delete = async (req, res) => {
-  const user = req['currentUser'];
-  if (!user) {
-    res.status(403).send('You must be logged in!');
-  }
-  try {
-    const list_entries = list_details(req, res);
-
-    //STEP 1 LOOP OVER LIST ENTRIES AND DELETE THEM
-    //STEP 2 THIS METHOD WILL BE THE RESULT OF REMOVING LIST FROM LISTS TABLE
-
-    return res.json({ message: 'List deleted!' });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
-  }
-};
-
-//IF USER DELETED, REMOVE ALL RELATED LISTS.
-//DO I NEED USER DELETE ACCOUNT BUTTON?
-//DO I NEED USER CONTROLLERS ? USER ROUTES ?
-/* exports.user_delete = async (req, res) => {
-  try {
-    const list_entries = list_details(req, res);
-
-    //STEP 1 LOOP OVER LIST ENTRIES AND DELETE THEM
-    //STEP 2 THIS METHOD WILL BE THE RESULT OF REMOVING LIST FROM LISTS TABLE
-
-    return res.json({ message: 'List deleted!' });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: 'Something went wrong' });
-  }
-};
- */
