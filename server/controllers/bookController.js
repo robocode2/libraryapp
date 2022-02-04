@@ -14,10 +14,9 @@ exports.book_list = async (req, res) => {
 };
 
 exports.book_create_post = async (req, res) => {
-  const { title, isbn, description } = req.body;
+  const { title, isbn, description } = req.body; //do I need id ?yesitseems
 
   //I should do validation here
-
   const date1 = new Date();
   const date2 = new Date();
 
@@ -98,11 +97,15 @@ exports.book_delete_post = async (req, res) => {
 exports.book_update_post = async (req, res) => {
   //is id ok? revert to id/uuid?
 
-  const { id, title, isbn, description } = req.body;
-  try {
-    const book = await Book.findOne({ where: { id } });
+  // ttest individual cases
 
-    book.id = id;
+  const BookId = req.params.id;
+
+  const { title, isbn, description } = req.body;
+  try {
+    const book = await Book.findOne({ where: { id: BookId } });
+    console.log(book);
+
     book.title = title;
     book.isbn = isbn;
     book.description = description;
