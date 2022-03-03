@@ -10,11 +10,11 @@ exports.createList = async (req, res) => {
   }
   try {
     await createUser(req, res);
-    const user_id = user.uid;
+    const userId = user.uid;
     const { name, description } = req.body;
     const createdAt = new Date();
     const updatedAt = new Date();
-    const newList = await List.create({ name, description, createdAt, updatedAt, userid: user_id });
+    const newList = await List.create({ name, description, createdAt, updatedAt, userid: userId });
     return res.status(201).json(newList);
   } catch (err) {
     if (err.name === 'SequelizeValidationError') {
@@ -34,21 +34,6 @@ exports.createList = async (req, res) => {
   }
 };
 
-/* exports.deleteList = async (req, res) => {
-  // delete list entries from User Booklist Entries
-  const id = req.params.id;
-  try {
-    const list = await List.findOne({ where: { id } });
-    //{
-    //if list is null
-    //}
-    await list.destroy();
-    return res.json({ message: 'list deleted!' });
-  } catch (err) {
-    return res.status(500).json({ error: 'Something went wrong' });
-  }
-};
- */
 exports.updateList = async (req, res) => {
   const { name, description } = req.body;
   try {
@@ -100,3 +85,19 @@ exports.getListDetails = async (req, res) => {
     return res.status(500).json({ error: 'Something went wrong' });
   }
 };
+
+/* exports.deleteList = async (req, res) => {
+  // delete list entries from User Booklist Entries
+  const id = req.params.id;
+  try {
+    const list = await List.findOne({ where: { id } });
+    //{
+    //if list is null
+    //}
+    await list.destroy();
+    return res.json({ message: 'list deleted!' });
+  } catch (err) {
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+};
+ */
