@@ -1,7 +1,7 @@
 require('dotenv').config();
 const cors = require('cors');
 const morgan = require('morgan');
-const middleware = require('./server/middleware/index');
+const middleware = require('./server/middleware/auth');
 const express = require('express');
 const app = express();
 const indexRouter = require('./server/routes/index.js');

@@ -1,15 +1,15 @@
 const express = require('express');
-const book_controller = require('../controllers/bookController');
+const bookController = require('../controllers/bookController');
 const router = express.Router();
 
-router.post('/books/create', book_controller.book_create_post);
-//axios delete?
-router.delete('/books/:id', book_controller.book_delete_post);
+router.post('/books/create', bookController.createBook);
 
-router.put('/books/:id', book_controller.book_update_post);
+router.delete('/books/:id', bookController.deleteBook);
 
-router.get('/books/:id', book_controller.book_detail);
+router.put('/books/:id', bookController.updateBook);
 
-router.get('/books', book_controller.book_list);
+router.get('/books/:id', bookController.getBook);
+
+router.get('/books', bookController.getBooks);
 
 module.exports = router;

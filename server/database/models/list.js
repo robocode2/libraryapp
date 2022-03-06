@@ -2,11 +2,6 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class List extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       List.belongsToMany(models.Book, { through: 'Entries', as: 'Booklists' });
     }
@@ -23,13 +18,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         notEmpty: true,
+        validate: {
+          len: {
+            args: [1, 150],
+            msg: 'Please enter a list name between 1 and 100 charcters',
+          },
+        },
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
         notEmpty: true,
+        validate: {
+          len: {
+            args: [1, 150],
+            msg: 'Please enter a list description between 1 and 100 charcters',
+          },
+        },
       },
     },
+
     {
       sequelize,
       tableName: 'list',
