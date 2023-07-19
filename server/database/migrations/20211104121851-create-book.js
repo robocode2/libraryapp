@@ -8,7 +8,6 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-
       title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -23,15 +22,6 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false,
         notEmpty: true,
-      },
-
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
       },
     });
   },

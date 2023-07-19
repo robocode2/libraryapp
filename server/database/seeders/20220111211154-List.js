@@ -7,9 +7,7 @@ module.exports = {
         {
           name: 'favourites seed',
           description: 'my favourites books',
-          createdAt: '2022-01-15T18:47:00.374Z',
-          updatedAt: '2022-01-15T18:47:00.374Z',
-          userid: 'FaAMohHFTwftFrApJnjcEt640k92',
+          userId: '123',
         },
       ],
       {}

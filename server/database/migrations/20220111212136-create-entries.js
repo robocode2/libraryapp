@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, DataTypes) => {
-    await queryInterface.createTable('entries', {
+    await queryInterface.createTable('entry', {
       id: {
         primaryKey: true,
         allowNull: false,
@@ -18,17 +18,9 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
     });
   },
   down: async (queryInterface, DataTypes) => {
-    await queryInterface.dropTable('entries');
+    await queryInterface.dropTable('entry');
   },
 };

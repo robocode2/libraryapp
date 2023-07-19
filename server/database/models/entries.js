@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         type: DataTypes.INTEGER,
       },
-      ListId: {
+      listId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
       },
-      BookId: {
+      bookId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      tableName: 'entries',
+      tableName: 'entry',
       modelName: 'Entries',
     }
   );

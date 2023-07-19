@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Book.belongsToMany(models.List, { through: 'Entries', as: 'Books' });
     }
+    //TODO double check here and the others
   }
   Book.init(
     {
