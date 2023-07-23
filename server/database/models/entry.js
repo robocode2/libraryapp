@@ -1,9 +1,9 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Entries extends Model {}
+  class Entry extends Model {}
 
-  Entries.init(
+  Entry.init(
     {
       id: {
         primaryKey: true,
@@ -14,19 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       listId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
       },
       bookId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
       },
     },
     {
       sequelize,
       tableName: 'entry',
-      modelName: 'Entries',
+      modelName: 'Entry',
     }
   );
-  return Entries;
+  return Entry;
 };

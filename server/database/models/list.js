@@ -3,7 +3,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class List extends Model {
     static associate(models) {
-      List.belongsToMany(models.Book, { through: 'Entries', as: 'Booklists' });
+      List.belongsToMany(models.Book, { through: 'Entry'}); //TODO add ?
     }
   }
   List.init(
@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
             msg: 'Please enter a list description between 1 and 100 charcters',
           },
         },
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
 
