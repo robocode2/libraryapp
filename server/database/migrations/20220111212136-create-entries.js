@@ -10,13 +10,11 @@ module.exports = {
       },
       bookId: {
         type: DataTypes.INTEGER,
-        unique: true,
         allowNull: false,
       },
       listId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
       },
     });
   },

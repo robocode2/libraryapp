@@ -20,7 +20,7 @@ module.exports = {
       },
       userId: {
         allowNull: false,
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
       },
     });
   },
